@@ -1,9 +1,10 @@
 import './style.css'
 
-export default function CardGame(amout) {
+export default function CardGame(image) {
+
     return /*html*/ `
         <article class="card-game">
-            <img src="images/logo-alura.png" alt="Logo da Alura">
+            <img src="./images/${image}" alt="Logo da Alura">
         </article>
     `;
 }
