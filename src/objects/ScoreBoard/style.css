@@ -1,6 +1,11 @@
 .score-board {
     display: flex;
     justify-content: space-evenly;
+    align-items: center;
     padding-top: 2.5rem;
     padding-bottom: 2.5rem;
+}
+
+.score-board > .-active {
+    background-color: red;
 }

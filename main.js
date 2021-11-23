@@ -6,8 +6,9 @@ import ScoreBoard from './src/objects/ScoreBoard';
 import BoardGame from './src/objects/BoardGame';
 
 const $root = document.querySelector('#app');
+const amountOfCards = 6;
 
 $root.insertAdjacentHTML('beforeend', `
-    ${ScoreBoard()}    
-    ${BoardGame(6)}   
+    ${ScoreBoard(amountOfCards / 2)}    
+    ${BoardGame(amountOfCards)}   
 `);

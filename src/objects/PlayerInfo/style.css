@@ -1,8 +1,0 @@
-.player-info {
-    display: flex;
-    align-items: center;
-}
-
-.player-info.-reverse {
-    flex-direction: row-reverse;
-}

@@ -1,12 +1,17 @@
 import './style.css'
 
-import PlayerInfo from '../PlayerInfo';
+import VsPlayer from '../../components/VsPlayer';
+import PlayerName from '../../components/PlayerName';
+import PlayerScore from '../PlayerScore';
 
-export default function ScoreBoard() {
+export default function ScoreBoard(avaliablePoints=1, playerScore=0) {
     return /*html*/ `
-        <header class="score-board">
-            ${PlayerInfo('Player1')}
-            ${PlayerInfo('Player2', 2)}
+        <header class="score-board">    
+            ${PlayerName('Player1')}     
+            ${PlayerScore(avaliablePoints)} 
+            ${VsPlayer()}   
+            ${PlayerScore(avaliablePoints)}       
+            ${PlayerName('Player2')}  
         </header>
     `;
 }
