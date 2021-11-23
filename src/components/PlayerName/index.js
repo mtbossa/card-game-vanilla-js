@@ -1,7 +1,5 @@
 export default function PlayerName(name) {
     return /*html*/ `
-        <div>
-            ${name}
-        </div>
+        <p>${name}</p>
     `;
 }
