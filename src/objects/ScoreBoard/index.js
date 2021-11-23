@@ -4,7 +4,7 @@ import VsPlayer from '../../components/VsPlayer';
 import PlayerName from '../../components/PlayerName';
 import PlayerScore from '../PlayerScore';
 
-export default function ScoreBoard(avaliablePoints=1, playerScore=0) {
+export default function ScoreBoard(avaliablePoints, playerScore=0) {
     return /*html*/ `
         <header class="score-board">    
             ${PlayerName('Player1')}     
