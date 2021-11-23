@@ -9,5 +9,5 @@ const $root = document.querySelector('#app');
 
 $root.insertAdjacentHTML('beforeend', `
     ${ScoreBoard()}
-    ${BoardGame(3)}   
+    ${BoardGame(2)}   
 `);
