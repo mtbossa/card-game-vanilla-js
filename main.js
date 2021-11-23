@@ -10,5 +10,5 @@ const $root = document.querySelector('#app');
 $root.insertAdjacentHTML('beforeend', `
     ${PlayerName('Player 1')}
     ${PlayerName('Player 2')}
-    ${BoardGame(6)}   
+    ${BoardGame(3)}   
 `);

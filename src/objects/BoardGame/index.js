@@ -1,11 +1,11 @@
 import './style.css'
 
-import CardGame from '../../components/CardGame';
+import CardFrontBack from '../../components/CardFrontBack';
 
-export default function BoardGame(amount) {
+export default function BoardGame(amountCards) {
     return /*html*/ `
-    <div class="board-game">
-        ${CardGame('logo-css.png').repeat(amount)}        
+    <section class="board-game">
+        ${CardFrontBack().repeat(amountCards)}        
     </div>      
     `;
 }
