@@ -10,14 +10,14 @@ export default function CardFrontBack(icon, altIcon) {
         const $boardGame = document.querySelector('.board-game');
         const $activeCards = $boardGame.querySelectorAll('.card-front-back.-active');
            
-        // Blocks flipping the card if 2 cards are already upwards
-        if ($activeCards.length <= 1) {
+        // Blocks flipping the card if the card is already selected
+        if (!$cardFrontBack.classList.contains('-active')) {
             $cardFrontBack.classList.toggle('-active');
         }
     }
 
     return /*html*/ `
-        <article class="card-front-back" onClick="window.cardFrontBack.handleClick(event)">        
+        <article class="card-front-back -not-correct" onClick="window.cardFrontBack.handleClick(event)">        
             <div class="card -front">
                 ${CardGame()}
             </div>

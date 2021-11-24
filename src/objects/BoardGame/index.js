@@ -15,12 +15,20 @@ export default function BoardGame() {
                                 .join('');
     }    
 
-    const dispatchMoveMadeEvent = ($scoreBoard, currentPlayer) => {
+    const dispatchMoveMadeEvent = ($scoreBoard, currentPlayer, correct=false) => {
         $scoreBoard.dispatchEvent(new CustomEvent('moveMade', {                     
             detail: { 
-                currentPlayer: (currentPlayer == 1) ? 2 : 1
+                currentPlayer: currentPlayer,
+                correct: correct
             } 
         }));
+    }
+
+    const makeCardsMarkedCorrect = ($activeCards) => {
+        $activeCards.forEach(($activeCard) => {            
+            $activeCard.classList.remove('-not-correct');
+            $activeCard.classList.add('-correct');
+        })
     }
 
     const sameCard = ($activeCards) => {
@@ -36,15 +44,20 @@ export default function BoardGame() {
     window.boardGame = {};
     window.boardGame.handleClick = () => {
         const $boardGame    = document.querySelector('.board-game');
-        const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active');
+        const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
         const $scoreBoard   = document.querySelector('.score-board');
         const $playerArrow  = document.querySelector('.player-arrow');
         const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
                 
-        if ($activeCards.length === 2 && !sameCard($activeCards)) {
+        if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
             setTimeout(() => {
                 flipAndHideCards($activeCards);   
                 dispatchMoveMadeEvent($scoreBoard, currentPlayer);  
+            }, 1000);
+        } else if (sameCard($activeCards)) {
+            setTimeout(() => {   
+                makeCardsMarkedCorrect($activeCards);             
+                dispatchMoveMadeEvent($scoreBoard, currentPlayer, true);  
             }, 1000);
         }
     };
