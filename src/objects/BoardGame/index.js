@@ -8,34 +8,40 @@ export default function BoardGame() {
         $activeCards.forEach((card) => card.classList.remove('-active'));
     }
 
-    const changePlayerArrow = () => {
-        const $playerArrow = document.querySelector('.player-arrow');
-        const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
+    const getHtmlCards = () => {
+        const htmlCardsList = cards.map((card) => CardFrontBack(card.icon, card.altIcon));
+        return [...htmlCardsList, ...htmlCardsList]
+                                .sort(() => Math.random() - 0.5)                
+                                .join('');
+    }    
 
-        $playerArrow.setAttribute('data-currentPlayer',(currentPlayer == 2) ? 1 : 2)
+    const dispatchMoveMadeEvent = ($scoreBoard, currentPlayer) => {
+        $scoreBoard.dispatchEvent(new CustomEvent('moveMade', {                     
+            detail: { 
+                currentPlayer: (currentPlayer == 1) ? 2 : 1
+            } 
+        }));
     }
 
     window.boardGame = {};
     window.boardGame.handleClick = () => {
-        const $boardGame = document.querySelector('.board-game');
-        const $activeCards = $boardGame.querySelectorAll('.card-front-back.-active');
-        
+        const $boardGame    = document.querySelector('.board-game');
+        const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active');
+        const $scoreBoard   = document.querySelector('.score-board');
+        const $playerArrow  = document.querySelector('.player-arrow');
+        const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
+                
         if ($activeCards.length === 2) {
             setTimeout(() => {
-                flipAndHideCards($activeCards);
-                changePlayerArrow();
+                flipAndHideCards($activeCards);   
+                dispatchMoveMadeEvent($scoreBoard, currentPlayer);  
             }, 1000);
         }
     };
-    
-    const htmlCardsList = cards.map((card) => CardFrontBack(card.icon, card.altIcon));
-    const $htmlCards = [...htmlCardsList, ...htmlCardsList]
-                            .sort(() => Math.random() - 0.5)
-                            .join('');
 
     return /*html*/ `
     <section class="board-game" onClick="boardGame.handleClick()">
-        ${$htmlCards}        
+        ${getHtmlCards()}        
     </section>      
     `;
 }
