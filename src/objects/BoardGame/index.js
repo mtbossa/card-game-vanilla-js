@@ -17,8 +17,8 @@ export default function BoardGame() {
 
     window.boardGame = {};
     window.boardGame.handleClick = () => {
-        
-        const $activeCards = document.querySelectorAll('.card-front-back.-active');
+        const $boardGame = document.querySelector('.board-game');
+        const $activeCards = $boardGame.querySelectorAll('.card-front-back.-active');
         
         if ($activeCards.length === 2) {
             setTimeout(() => {

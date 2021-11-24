@@ -7,8 +7,13 @@ export default function CardFrontBack(icon, altIcon) {
     window.cardFrontBack.handleClick = (e) => {
         const $element = e.target;
         const $cardFrontBack = $element.closest('.card-front-back');
-
-        $cardFrontBack.classList.toggle('-active');
+        const $boardGame = document.querySelector('.board-game');
+        const $activeCards = $boardGame.querySelectorAll('.card-front-back.-active');
+           
+        // Blocks flipping the card if 2 cards are already upwards
+        if ($activeCards.length <= 1) {
+            $cardFrontBack.classList.toggle('-active');
+        }
     }
 
     return /*html*/ `
