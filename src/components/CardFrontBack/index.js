@@ -2,7 +2,7 @@ import './style.css'
 
 import CardGame from "../CardGame";
 
-export default function CardFrontBack() {
+export default function CardFrontBack(icon, altIcon) {
     window.cardFrontBack = {};
     window.cardFrontBack.handleClick = (e) => {
         const $element = e.target;
@@ -17,7 +17,7 @@ export default function CardFrontBack() {
                 ${CardGame()}
             </div>
             <div class="card -back">
-                ${CardGame('logo-css.png', 'Logo do CSS3')}
+                ${CardGame(icon, altIcon)}
             </div>        
         </article>
     `;
