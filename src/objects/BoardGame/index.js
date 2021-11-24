@@ -23,6 +23,16 @@ export default function BoardGame() {
         }));
     }
 
+    const sameCard = ($activeCards) => {
+        const imageNames = [...$activeCards].map(($activeCard) => $activeCard.querySelector('.card.-back > .card-game > img').getAttribute('src'));
+        
+        if (imageNames[0] !== imageNames[1]) {
+            return false;
+        }
+
+        return true;
+    }
+
     window.boardGame = {};
     window.boardGame.handleClick = () => {
         const $boardGame    = document.querySelector('.board-game');
@@ -31,7 +41,7 @@ export default function BoardGame() {
         const $playerArrow  = document.querySelector('.player-arrow');
         const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
                 
-        if ($activeCards.length === 2) {
+        if ($activeCards.length === 2 && !sameCard($activeCards)) {
             setTimeout(() => {
                 flipAndHideCards($activeCards);   
                 dispatchMoveMadeEvent($scoreBoard, currentPlayer);  
