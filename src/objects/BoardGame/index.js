@@ -11,15 +11,16 @@ export default function BoardGame() {
     const getHtmlCards = () => {
         const htmlCardsList = cards.map((card) => CardFrontBack(card.icon, card.altIcon));
         return [...htmlCardsList, ...htmlCardsList]
-                                .sort(() => Math.random() - 0.5)                
+                                /*.sort(() => Math.random() - 0.5)       */         
                                 .join('');
     }    
 
-    const dispatchMoveMadeEvent = ($scoreBoard, currentPlayer, correct=false) => {
-        $scoreBoard.dispatchEvent(new CustomEvent('moveMade', {                     
+    const dispatchMoveMadeEvent = (currentPlayer, correct=false) => {
+        console.log('dispatch event');
+        window.scoreBoard.$scoreBoard.dispatchEvent(new CustomEvent('moveMade', {                     
             detail: { 
                 currentPlayer: currentPlayer,
-                correct: correct
+                correct: correct,
             } 
         }));
     }
@@ -45,20 +46,25 @@ export default function BoardGame() {
     window.boardGame.handleClick = () => {
         const $boardGame    = document.querySelector('.board-game');
         const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
-        const $scoreBoard   = document.querySelector('.score-board');
         const $playerArrow  = document.querySelector('.player-arrow');
         const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
+
+        // In case player clicks on cards that are already correct
+        if ($activeCards.length === 0) {           
+            return false;
+        }
                 
         if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
-            setTimeout(() => {
+            setTimeout(() => {       
                 flipAndHideCards($activeCards);   
-                dispatchMoveMadeEvent($scoreBoard, currentPlayer);  
+                dispatchMoveMadeEvent(currentPlayer);  
             }, 1000);
-        } else if (sameCard($activeCards)) {
-            setTimeout(() => {   
-                makeCardsMarkedCorrect($activeCards);             
-                dispatchMoveMadeEvent($scoreBoard, currentPlayer, true);  
-            }, 1000);
+        } else if (sameCard($activeCards)) {  
+            console.log($activeCards);            
+            console.log('same CARDs');            
+            makeCardsMarkedCorrect($activeCards);             
+            dispatchMoveMadeEvent(currentPlayer, true);  
+            console.log('dispatched') ;
         }
     };
 
