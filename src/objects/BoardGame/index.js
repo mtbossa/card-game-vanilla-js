@@ -58,6 +58,17 @@ export default function BoardGame(amountOfCards) {
         return true;
     }
 
+    const gameEnded = (amountOfCards) => {
+        const $boardGame    = document.querySelector('.board-game');
+        const $correctCards = $boardGame.querySelectorAll('.card-front-back.-active.-correct');
+
+        if ($correctCards.length === amountOfCards) {
+            return true;
+        }
+
+        return false;
+    }
+
     window.boardGame = {};
     window.boardGame.handleClick = () => {
         const $boardGame    = document.querySelector('.board-game');
@@ -66,10 +77,11 @@ export default function BoardGame(amountOfCards) {
         const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
 
         // In case player clicks on card that is already correct
-        if ($activeCards.length === 0) {           
+        if ($activeCards.length === 0) { 
+            console.log('hehehe')          ;
             return;
-        }
-                
+        } 
+
         if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
             setTimeout(() => {      
                 dispatchMoveMadeEvent(currentPlayer);   
@@ -78,6 +90,13 @@ export default function BoardGame(amountOfCards) {
         } else if (sameCard($activeCards)) { 
             dispatchMoveMadeEvent(currentPlayer, true);
             makeCardsMarkedCorrect($activeCards); 
+        }
+
+        if (gameEnded(amountOfCards)) {
+            setTimeout(() => {
+                const $winnerModal = document.querySelector('.winner-modal');
+                $winnerModal.style.display = 'flex';
+            }, 1000);            
         }
     };
 
