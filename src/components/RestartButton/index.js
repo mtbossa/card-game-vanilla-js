@@ -2,6 +2,6 @@ import './style.css';
 
 export default function RestartButton() {
     return /*html*/ `
-        <button class="restart-button">restart</button>
+        <button class="restart-button" onClick="console.log('oi')">restart</button>
     `;
 }
