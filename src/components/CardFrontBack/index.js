@@ -5,14 +5,13 @@ import CardGame from "../CardGame";
 export default function CardFrontBack(icon, altIcon) {
     window.cardFrontBack = {};
     window.cardFrontBack.handleClick = (e) => {
-        const $element = e.target;
+        const $element       = e.target;
         const $cardFrontBack = $element.closest('.card-front-back');
-        const $boardGame = document.querySelector('.board-game');
-        const $activeCards = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
+        const $boardGame     = document.querySelector('.board-game');
+        const $activeCards   = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
            
         // Blocks flipping the card if the card is already selected
         // and allows only 2 cards to be -active at same time
-        console.log('activeCards inside CardFrontBack: ', $activeCards);
         if (!$cardFrontBack.classList.contains('-active') && $activeCards.length < 2) {
             $cardFrontBack.classList.toggle('-active');
         }

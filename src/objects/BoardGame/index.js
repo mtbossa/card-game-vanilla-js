@@ -49,22 +49,19 @@ export default function BoardGame() {
         const $playerArrow  = document.querySelector('.player-arrow');
         const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
 
-        // In case player clicks on cards that are already correct
+        // In case player clicks on card that is already correct
         if ($activeCards.length === 0) {           
-            return false;
+            return;
         }
                 
         if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
-            setTimeout(() => {       
-                flipAndHideCards($activeCards);   
-                dispatchMoveMadeEvent(currentPlayer);  
+            setTimeout(() => {      
+                dispatchMoveMadeEvent(currentPlayer);   
+                flipAndHideCards($activeCards);  
             }, 1000);
-        } else if (sameCard($activeCards)) {  
-            console.log($activeCards);            
-            console.log('same CARDs');            
-            makeCardsMarkedCorrect($activeCards);             
-            dispatchMoveMadeEvent(currentPlayer, true);  
-            console.log('dispatched') ;
+        } else if (sameCard($activeCards)) { 
+            dispatchMoveMadeEvent(currentPlayer, true);
+            makeCardsMarkedCorrect($activeCards); 
         }
     };
 
