@@ -6,9 +6,12 @@ export default function RestartButton() {
         const $boardGame    = document.querySelector('.board-game');
         const $allCards  = $boardGame.querySelectorAll('.card-front-back');
         const $playerArrow  = document.querySelector('.player-arrow');
+        const $modal = document.querySelector('.winner-modal');
         
         window.boardGame.flipAndHideCards($allCards);
+        window.scoreBoard.deactivatePoints();
         removeCorrectClass($allCards);
+        window.winnerModal.hideModal();
     };
 
     const removeCorrectClass = $allCards => {

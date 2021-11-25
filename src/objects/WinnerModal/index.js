@@ -5,7 +5,15 @@ import WinnerMessage from '../../components/WinnerMessage';
 import WinnerIcon from '../../components/WinnerIcon';
 import RestartButton from '../../components/RestartButton';
 
-export default function WinnerModal(winnerName) {
+export default function WinnerModal() {
+    window.winnerModal = {};
+    window.winnerModal.hideModal = () => {
+        const $winnerModal = document.querySelector('.winner-modal');
+
+        $winnerModal.style.visibility = 'hidden';
+        $winnerModal.style.opacity = '0';
+    }
+
     window.addEventListener('load', () => {
         const $winnerModal = document.querySelector('.winner-modal');
         
@@ -19,7 +27,7 @@ export default function WinnerModal(winnerName) {
         });        
     });
 
-    const showModal = ($winnerModal) => {
+    const showModal = $winnerModal => {
         $winnerModal.style.visibility = 'visible';
         $winnerModal.style.opacity = '1';
     };
@@ -28,7 +36,7 @@ export default function WinnerModal(winnerName) {
         $playerWinner.innerText = winnerName;      
     };
 
-    const getWinnerName = (winner) => {
+    const getWinnerName = winner => {
         const $scoreBoard = document.querySelector('.score-board');
         const $playerName = $scoreBoard.querySelector(`.player-name[data-player='${winner}']`);
 

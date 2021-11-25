@@ -76,6 +76,13 @@ export default function BoardGame(amountOfCards) {
 
     const dispatchWinEvent = (currentPlayer) => {
         const $winnerModal = document.querySelector('.winner-modal');
+        const $scoreBoard = document.querySelector('.score-board');
+
+        $scoreBoard.dispatchEvent(new CustomEvent('win', {                     
+            detail: { 
+                currentPlayer: currentPlayer,
+            } 
+        }));
 
         $winnerModal.dispatchEvent(new CustomEvent('win', {                     
             detail: { 
