@@ -95,7 +95,8 @@ export default function BoardGame(amountOfCards) {
         if (gameEnded(amountOfCards)) {
             setTimeout(() => {
                 const $winnerModal = document.querySelector('.winner-modal');
-                $winnerModal.style.display = 'flex';
+                $winnerModal.style.visibility = 'visible';
+                $winnerModal.style.opacity = '1';
             }, 1000);            
         }
     };
