@@ -7,10 +7,10 @@ import BoardGame from './src/objects/BoardGame';
 import WinnerModal from './src/objects/WinnerModal';
 
 const $root = document.querySelector('#app');
-const amountOfCards = 4;
+const amountOfCards = 6;
 
 $root.insertAdjacentHTML('beforeend', `
     ${WinnerModal()}    
-    ${ScoreBoard(amountOfCards / 2)}    
+    ${ScoreBoard(Math.ceil(amountOfCards / 2))}    
     ${BoardGame(amountOfCards)}   
 `);

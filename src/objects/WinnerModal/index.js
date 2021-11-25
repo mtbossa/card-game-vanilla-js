@@ -6,9 +6,38 @@ import WinnerIcon from '../../components/WinnerIcon';
 import RestartButton from '../../components/RestartButton';
 
 export default function WinnerModal(winnerName) {
+    window.addEventListener('load', () => {
+        const $winnerModal = document.querySelector('.winner-modal');
+        
+        $winnerModal.addEventListener('win', event => {   
+            const winner = event.detail.currentPlayer;
+            const winnerName = getWinnerName(winner);
+            const $playerWinner = $winnerModal.querySelector('.player-winner');
+
+            setWinnerName(winnerName, $playerWinner)
+            showModal($winnerModal);                
+        });        
+    });
+
+    const showModal = ($winnerModal) => {
+        $winnerModal.style.visibility = 'visible';
+        $winnerModal.style.opacity = '1';
+    };
+
+    const setWinnerName = (winnerName, $playerWinner) => {
+        $playerWinner.innerText = winnerName;      
+    };
+
+    const getWinnerName = (winner) => {
+        const $scoreBoard = document.querySelector('.score-board');
+        const $playerName = $scoreBoard.querySelector(`.player-name[data-player='${winner}']`);
+
+        return $playerName.innerText;
+    }
+
     return /*html*/ `
     <div class="winner-modal">
-        ${PlayerWinner(winnerName)}
+        ${PlayerWinner()}
         ${WinnerMessage()}
         ${WinnerIcon()}
         ${RestartButton()}

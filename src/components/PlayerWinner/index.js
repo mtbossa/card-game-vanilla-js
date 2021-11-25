@@ -1,7 +1,7 @@
 import './style.css';
 
-export default function PlayerWinner(name) {
+export default function PlayerWinner() {
     return /*html*/ `
-        <p class="player-winner">name</p>
+        <p class="player-winner"></p>
     `;
 }

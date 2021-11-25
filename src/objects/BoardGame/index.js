@@ -4,7 +4,7 @@ import CardFrontBack from '../../components/CardFrontBack';
 import cards from './data.js'
 
 export default function BoardGame(amountOfCards) {
-    const flipAndHideCards = ($activeCards) => {
+    const flipAndHideCards = $activeCards => {
         $activeCards.forEach((card) => card.classList.remove('-active'));
     }
 
@@ -21,7 +21,7 @@ export default function BoardGame(amountOfCards) {
         return [...cards.map((card) => CardFrontBack(card.icon, card.altIcon))];
     }
 
-    const getHtmlCards = (amountOfCards) => {
+    const getHtmlCards = amountOfCards => {
         const htmlCardsArray = getHtmlCardsList();
         const cleanCards = removeItemsFromArray(amountOfCards / 2, htmlCardsArray);
         const htmlCards = [...cleanCards, ...cleanCards];                              
@@ -41,14 +41,24 @@ export default function BoardGame(amountOfCards) {
         }));
     }
 
-    const makeCardsMarkedCorrect = ($activeCards) => {
+    const dispatchWinEvent = (currentPlayer) => {
+        const $winnerModal = document.querySelector('.winner-modal');
+
+        $winnerModal.dispatchEvent(new CustomEvent('win', {                     
+            detail: { 
+                currentPlayer: currentPlayer,
+            } 
+        }));
+    }
+
+    const makeCardsMarkedCorrect = $activeCards => {
         $activeCards.forEach(($activeCard) => {            
             $activeCard.classList.remove('-not-correct');
             $activeCard.classList.add('-correct');
         })
     }
 
-    const sameCard = ($activeCards) => {
+    const sameCard = $activeCards => {
         const imageNames = [...$activeCards].map(($activeCard) => $activeCard.querySelector('.card.-back > .card-game > img').getAttribute('src'));
         
         if (imageNames[0] !== imageNames[1]) {
@@ -58,7 +68,7 @@ export default function BoardGame(amountOfCards) {
         return true;
     }
 
-    const gameEnded = (amountOfCards) => {
+    const gameEnded = amountOfCards => {
         const $boardGame    = document.querySelector('.board-game');
         const $correctCards = $boardGame.querySelectorAll('.card-front-back.-active.-correct');
 
@@ -78,7 +88,6 @@ export default function BoardGame(amountOfCards) {
 
         // In case player clicks on card that is already correct
         if ($activeCards.length === 0) { 
-            console.log('hehehe')          ;
             return;
         } 
 
@@ -94,9 +103,8 @@ export default function BoardGame(amountOfCards) {
 
         if (gameEnded(amountOfCards)) {
             setTimeout(() => {
-                const $winnerModal = document.querySelector('.winner-modal');
-                $winnerModal.style.visibility = 'visible';
-                $winnerModal.style.opacity = '1';
+                console.log('dispatching win')  ;
+                dispatchWinEvent(currentPlayer);               
             }, 1000);            
         }
     };
