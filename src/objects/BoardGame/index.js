@@ -4,9 +4,40 @@ import CardFrontBack from '../../components/CardFrontBack';
 import cards from './data.js'
 
 export default function BoardGame(amountOfCards) {
-    const flipAndHideCards = $activeCards => {
+    window.boardGame = {};
+    window.boardGame.handleClick = () => {
+        const $boardGame    = document.querySelector('.board-game');
+        const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
+        const $playerArrow  = document.querySelector('.player-arrow');
+        const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
+
+        // In case player clicks on card that is already correct
+        if ($activeCards.length === 0) { 
+            return;
+        } 
+
+        if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
+            setTimeout(() => {      
+                dispatchMoveMadeEvent(currentPlayer);   
+                window.boardGame.flipAndHideCards($activeCards);  
+            }, 1000);
+        } else if (sameCard($activeCards)) { 
+            dispatchMoveMadeEvent(currentPlayer, true);
+            makeCardsMarkedCorrect($activeCards); 
+        }
+
+        if (gameEnded(amountOfCards)) {
+            setTimeout(() => {
+                console.log('dispatching win')  ;
+                dispatchWinEvent(currentPlayer);               
+            }, 1000);            
+        }
+    };
+
+    window.boardGame.flipAndHideCards = $activeCards => {
         $activeCards.forEach((card) => card.classList.remove('-active'));
     }
+    
 
     const removeItemsFromArray = (amountToLeave, array) => {
         for (var i = array.length - 1; i >= amountToLeave; i--) {
@@ -78,36 +109,6 @@ export default function BoardGame(amountOfCards) {
 
         return false;
     }
-
-    window.boardGame = {};
-    window.boardGame.handleClick = () => {
-        const $boardGame    = document.querySelector('.board-game');
-        const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
-        const $playerArrow  = document.querySelector('.player-arrow');
-        const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
-
-        // In case player clicks on card that is already correct
-        if ($activeCards.length === 0) { 
-            return;
-        } 
-
-        if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
-            setTimeout(() => {      
-                dispatchMoveMadeEvent(currentPlayer);   
-                flipAndHideCards($activeCards);  
-            }, 1000);
-        } else if (sameCard($activeCards)) { 
-            dispatchMoveMadeEvent(currentPlayer, true);
-            makeCardsMarkedCorrect($activeCards); 
-        }
-
-        if (gameEnded(amountOfCards)) {
-            setTimeout(() => {
-                console.log('dispatching win')  ;
-                dispatchWinEvent(currentPlayer);               
-            }, 1000);            
-        }
-    };
 
     return /*html*/ `
     <section class="board-game" onClick="boardGame.handleClick()">
