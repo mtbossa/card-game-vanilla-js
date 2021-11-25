@@ -7,7 +7,7 @@ import BoardGame from './src/objects/BoardGame';
 import WinnerModal from './src/objects/WinnerModal';
 
 const $root = document.querySelector('#app');
-const amountOfCards = 6;
+const amountOfCards = 4;
 
 $root.insertAdjacentHTML('beforeend', `
     ${WinnerModal()}    

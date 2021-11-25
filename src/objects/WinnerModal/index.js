@@ -5,10 +5,10 @@ import WinnerMessage from '../../components/WinnerMessage';
 import WinnerIcon from '../../components/WinnerIcon';
 import RestartButton from '../../components/RestartButton';
 
-export default function WinnerModal() {
+export default function WinnerModal(winnerName) {
     return /*html*/ `
     <div class="winner-modal">
-        ${PlayerWinner()}
+        ${PlayerWinner(winnerName)}
         ${WinnerMessage()}
         ${WinnerIcon()}
         ${RestartButton()}

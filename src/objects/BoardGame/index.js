@@ -3,16 +3,32 @@ import './style.css'
 import CardFrontBack from '../../components/CardFrontBack';
 import cards from './data.js'
 
-export default function BoardGame() {
+export default function BoardGame(amountOfCards) {
     const flipAndHideCards = ($activeCards) => {
         $activeCards.forEach((card) => card.classList.remove('-active'));
     }
 
-    const getHtmlCards = () => {
-        const htmlCardsList = cards.map((card) => CardFrontBack(card.icon, card.altIcon));
-        return [...htmlCardsList, ...htmlCardsList]
-                                /*.sort(() => Math.random() - 0.5)       */         
-                                .join('');
+    const removeItemsFromArray = (amountToLeave, array) => {
+        for (var i = array.length - 1; i >= amountToLeave; i--) {
+            array.splice(Math.floor(Math.random() * array.length), 1);
+        }
+
+        return array;
+    }
+
+    const getHtmlCardsList = () => {
+        // [...] to return as an Array
+        return [...cards.map((card) => CardFrontBack(card.icon, card.altIcon))];
+    }
+
+    const getHtmlCards = (amountOfCards) => {
+        const htmlCardsArray = getHtmlCardsList();
+        const cleanCards = removeItemsFromArray(amountOfCards / 2, htmlCardsArray);
+        const htmlCards = [...cleanCards, ...cleanCards];                              
+
+        return htmlCards
+                    /*.sort(() => Math.random() - 0.5) */     
+                    .join('');
     }    
 
     const dispatchMoveMadeEvent = (currentPlayer, correct=false) => {
@@ -67,7 +83,7 @@ export default function BoardGame() {
 
     return /*html*/ `
     <section class="board-game" onClick="boardGame.handleClick()">
-        ${getHtmlCards()}        
+        ${getHtmlCards(amountOfCards)}        
     </section>      
     `;
 }
