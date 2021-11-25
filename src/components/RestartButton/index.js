@@ -8,7 +8,15 @@ export default function RestartButton() {
         const $playerArrow  = document.querySelector('.player-arrow');
         
         window.boardGame.flipAndHideCards($allCards);
+        removeCorrectClass($allCards);
     };
+
+    const removeCorrectClass = $allCards => {
+        $allCards.forEach(card => {
+            card.classList.remove('-correct');
+            card.classList.add('-not-correct');
+        });
+    }
     
     return /*html*/ `
         <button class="restart-button" onClick="restartButton.handleClick()">restart</button>
