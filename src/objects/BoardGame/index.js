@@ -7,28 +7,27 @@ export default function BoardGame(amountOfCards) {
     window.boardGame = {};
     window.boardGame.handleClick = () => {
         const $boardGame    = document.querySelector('.board-game');
-        const $activeCards  = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
+        const $activeCardsNotCorrect = $boardGame.querySelectorAll('.card-front-back.-active.-not-correct');
         const $playerArrow  = document.querySelector('.player-arrow');
         const currentPlayer = $playerArrow.getAttribute('data-currentPlayer');
 
         // In case player clicks on card that is already correct
-        if ($activeCards.length === 0) { 
+        if ($activeCardsNotCorrect.length === 0) { 
             return;
         } 
 
-        if ($activeCards.length % 2 === 0 && !sameCard($activeCards)) {
+        if (areTwoCardsActive($activeCardsNotCorrect) && !sameCard($activeCardsNotCorrect)) {
             setTimeout(() => {      
                 dispatchMoveMadeEvent(currentPlayer);   
-                window.boardGame.flipAndHideCards($activeCards);  
+                window.boardGame.flipAndHideCards($activeCardsNotCorrect);  
             }, 1000);
-        } else if (sameCard($activeCards)) { 
+        } else if (sameCard($activeCardsNotCorrect)) { 
             dispatchMoveMadeEvent(currentPlayer, true);
-            makeCardsMarkedCorrect($activeCards); 
+            makeCardsMarkedCorrect($activeCardsNotCorrect); 
         }
 
         if (gameEnded(amountOfCards)) {
             setTimeout(() => {
-                console.log('dispatching win')  ;
                 dispatchWinEvent(currentPlayer);               
             }, 1000);            
         }
@@ -38,6 +37,9 @@ export default function BoardGame(amountOfCards) {
         $activeCards.forEach((card) => card.classList.remove('-active'));
     }
     
+    const areTwoCardsActive = $activeCards => {
+        return $activeCards.length % 2 === 0
+    }
 
     const removeItemsFromArray = (amountToLeave, array) => {
         for (var i = array.length - 1; i >= amountToLeave; i--) {
