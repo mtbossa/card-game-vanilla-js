@@ -120,8 +120,8 @@ export default function BoardGame(amountOfCards) {
     }
 
     return /*html*/ `
-    <section class="board-game" onClick="boardGame.handleClick()">
-        ${getHtmlCards(amountOfCards)}        
-    </section>      
+        <section class="board-game" onClick="boardGame.handleClick()">
+            ${getHtmlCards(amountOfCards)}        
+        </section>      
     `;
 }

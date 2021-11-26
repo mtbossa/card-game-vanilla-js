@@ -8,10 +8,11 @@ export default function RestartButton() {
         const $playerArrow  = document.querySelector('.player-arrow');
         const $modal = document.querySelector('.winner-modal');
         
-        window.boardGame.flipAndHideCards($allCards);
-        window.scoreBoard.deactivatePoints();
-        removeCorrectClass($allCards);
-        window.winnerModal.hideModal();
+        // window.boardGame.flipAndHideCards($allCards);
+        // window.scoreBoard.resetPoints();
+        // removeCorrectClass($allCards);
+        // window.winnerModal.hideModal();
+        location.reload();
     };
 
     const removeCorrectClass = $allCards => {

@@ -7,7 +7,7 @@ import PlayerArrow from '../../components/PlayerArrow';
 
 export default function ScoreBoard(maxAvaliablePoints) {
     window.scoreBoard = {};
-    window.scoreBoard.deactivatePoints = () => {
+    window.scoreBoard.resetPoints = () => {
         const $allPoints = document.querySelectorAll('.player-point');
 
         $allPoints.forEach($point => {
