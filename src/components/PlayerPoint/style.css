@@ -1,0 +1,13 @@
+.player-point {
+    display: inline-block;
+    width: 14px;
+    height: 14px;
+    background-color: var(--color-old-silver);
+    border: 2px solid var(--color-floral-white);
+    transition: 200ms ease-in-out;
+}
+
+.player-point.-active {
+    background-color: var(--color-mantis);
+}
+

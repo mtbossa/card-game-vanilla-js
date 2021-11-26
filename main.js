@@ -1,6 +1,16 @@
-import './style.css'
+import './src/styles/generic/reset.css';
+import './src/styles/settings/colors.css';
+import './src/styles/elements/base.css';
 
-document.querySelector('#app').innerHTML = `
-  <h1>Hello Vite!</h1>
-  <a href="https://vitejs.dev/guide/features.html" target="_blank">Documentation</a>
-`
+import ScoreBoard from './src/objects/ScoreBoard';
+import BoardGame from './src/objects/BoardGame';
+import WinnerModal from './src/objects/WinnerModal';
+
+const $root = document.querySelector('#app');
+const amountOfCards = 6;
+
+$root.insertAdjacentHTML('beforeend', `
+    ${WinnerModal()}    
+    ${ScoreBoard(Math.ceil(amountOfCards / 2))}    
+    ${BoardGame(amountOfCards)}   
+`);

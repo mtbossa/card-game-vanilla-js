@@ -1,0 +1,9 @@
+.restart-button {
+    width: 240px;
+    height: 40px;
+    font-family: 'Press Start 2P', cursive;
+    font-size: 1.8rem;
+    color: var(--color-floral-white);
+    background-color: var(--color-fiery-rose);
+    border: 2px solid var(--color-floral-white);
+}
