@@ -60,7 +60,7 @@ export default function BoardGame(amountOfCards) {
         const htmlCards = [...cleanCards, ...cleanCards];                              
 
         return htmlCards
-                    /*.sort(() => Math.random() - 0.5) */     
+                    .sort(() => Math.random() - 0.5)     
                     .join('');
     }    
 
